@@ -24,6 +24,7 @@ var/
 .installed.cfg
 *.egg'
 venv
+dogbreedenv
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -94,3 +95,6 @@ target/
 data/*/*
 models/*
 !.gitkeep
+
+# Develoment Enviroment
+#dev

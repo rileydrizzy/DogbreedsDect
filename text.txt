@@ -1,0 +1,6 @@
+.\env\Scripts\activate
+
+py -m venv env
+
+py -m pip install -r requirements.txt
+py -m pip freeze > requirements.txt

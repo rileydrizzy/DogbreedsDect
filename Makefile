@@ -4,7 +4,8 @@ help:
 	@echo "    prepare              desc of the command prepare"
 	@echo "    install              desc of the command install"
 
-install: #int
+
+install:
 	@echo "Installing..."
 	curl -sSL https://install.python-poetry.org | python -
 	poetry install
@@ -16,17 +17,14 @@ activate:
 
 setup: install activate
 
-precommit: #
+precommit:
 	@echo "Running precommit on all files"
 	pre-commit run --all-files
 
 export:
-	@echo "Exporting dep to requirements file"
+	@echo "Exporting dependencies to requirements file"
 	poetry export --without-hashes -f requirements.txt --output requirements.txt
 
-backup: #used to push to Github without running precommit
+backup: # To push to Github without running precommit
 	git commit --no-verify -m "backup"
 	git push origin main
-
-pipeline: 
-	python src/dev_test.py

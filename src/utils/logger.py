@@ -3,16 +3,19 @@
 """
 
 from pathlib import Path
+
 from loguru import logger
 
-print("running okay")
+FORMAT_STYLE = (
+    "{time:MMMM D, YYYY > HH:mm:ss}  | {level} | {module}: {function}{line} - {message}"
+)
 
-Format_style = "{time:YYYY_MM_DD HH:mm:ss} | {level} | {module}: {function}{line} - {message}"
+LOG_DIR = Path("logs")
+log_filepath = Path(LOG_DIR, "running_logs.log")
+Path.mkdir(LOG_DIR, exist_ok=True)
 
-log_dir = 'logs'
-log_filepath = Path(log_dir, "running_logs.log")
-Path.mkdir(log_dir, exist_ok= True)
-
-logger.add(log_filepath,
-    format= Format_style,
-    level= "INFO",)
+logger.add(
+    log_filepath,
+    format=FORMAT_STYLE,
+    level="INFO",
+)

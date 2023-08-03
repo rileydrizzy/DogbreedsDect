@@ -1,0 +1,9 @@
+Activate Virtual env
+Windows = .\env\Scripts\activate
+Bash = source env/bin/activate
+
+Create Virtual env
+    py -m venv env
+
+py -m pip install -r requirements.txt
+py -m pip freeze > requirements.txt

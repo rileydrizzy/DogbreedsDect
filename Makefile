@@ -12,7 +12,7 @@ install:
 	
 activate:
 	@echo "Activating virtual environment"
-	python source env/bin/activate
+	source env/bin/activate
 
 setup: install activate
 

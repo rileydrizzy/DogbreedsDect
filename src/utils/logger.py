@@ -3,7 +3,8 @@
 """
 
 from pathlib import Path
-
+import os
+import mlflow
 from loguru import logger
 
 FORMAT_STYLE = (
@@ -19,3 +20,23 @@ logger.add(
     format=FORMAT_STYLE,
     level="INFO",
 )
+
+def tracking(name):
+    """_summary_
+
+    Parameters
+    ----------
+    name : _type_
+        _description_
+
+    Returns
+    -------
+    _type_
+        _description_
+    """
+    mlflow.set_tracking_uri(os.getenv('MLFLOW_TRACKING_URI'))
+    experiment = mlflow.get_experiment_by_name(name)
+    if experiment is None:
+        experiment_id = mlflow.create_experiment(name)
+        return experiment_id
+    return experiment.experiment_id

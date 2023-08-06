@@ -27,3 +27,24 @@ export:
 force backup: # To push to Github without running precommit
 	git commit --no-verify -m "backup"
 	git push origin main
+
+# Define the path to the virtual environment
+VENV_DIR := logenv
+
+# Define the activation command based on the operating system
+ifdef OS
+    ifeq ($(OS),Windows_NT)
+        ACTIVATE_CMD := $(VENV_DIR)\Scripts\activate
+    else
+        ACTIVATE_CMD := source $(VENV_DIR)/bin/activate
+    endif
+else
+    ACTIVATE_CMD := source $(VENV_DIR)/bin/activate
+endif
+
+.PHONY: activate
+
+activate:
+    $(ACTIVATE_CMD)
+
+# Add your other Makefile rules below...

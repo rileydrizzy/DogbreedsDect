@@ -34,7 +34,7 @@ def tracking(name):
     _type_
         _description_
     """
-    mlflow.set_tracking_uri(os.getenv('MLFLOW_TRACKING_URI'))
+    mlflow.set_tracking_uri('https://dagshub.com/rileydrizzy/dogbreeds_dect.mlflow')
     experiment = mlflow.get_experiment_by_name(name)
     if experiment is None:
         experiment_id = mlflow.create_experiment(name)

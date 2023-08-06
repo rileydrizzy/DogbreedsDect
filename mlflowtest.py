@@ -12,7 +12,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.preprocessing.text import Tokenizer
 from utils.logger import tracking
 print('STAGE 1')
-exp_id = tracking('TEST NEW RUN')
+exp_id = tracking('TEST RUN')
 print(exp_id)
 print('STAGE 2')
 mlflow.tensorflow.autolog()

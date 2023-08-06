@@ -10,26 +10,8 @@ install:
 	python -m pip install -r requirements.txt
 	pre-commit install
 	
-activate:
-	@echo "Activating virtual environment"
-	source env/bin/activate
-
-setup: install activate
-
-precommit:
-	@echo "Running precommit on all files"
-	pre-commit run --all-files
-
-export:
-	@echo "Exporting dependencies to requirements file"
-	python -m pip freeze > requirements.txt
-
-force backup: # To push to Github without running precommit
-	git commit --no-verify -m "backup"
-	git push origin main
-
 # Define the path to the virtual environment
-VENV_DIR := logenv
+VENV_DIR := env
 
 # Define the activation command based on the operating system
 ifdef OS
@@ -45,6 +27,19 @@ endif
 .PHONY: activate
 
 activate:
-    $(ACTIVATE_CMD)
+	#@echo "Activating virtual environment"
+	$(ACTIVATE_CMD)
 
-# Add your other Makefile rules below...
+setup: activate install 
+
+precommit:
+	@echo "Running precommit on all files"
+	pre-commit run --all-files
+
+export:
+	@echo "Exporting dependencies to requirements file"
+	python -m pip freeze > requirements.txt
+
+force backup: # To push to Github without running precommit
+	git commit --no-verify -m "backup"
+	git push origin main

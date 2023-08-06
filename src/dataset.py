@@ -1,10 +1,12 @@
 """
 doc
 """
-
+import os
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import opendatasets as od
+import pandas as pd
 
 from src.utils.logger import logger
 
@@ -99,18 +101,17 @@ def list_files_in_directory(directory_path):
         return []
 
 
-def main(dir, main_dataframe):
+def _main(dir, main_dataframe):
     list_dataframes = []
     for main_dir, labels_dir, filenames in os.walk(dir, topdown=True):
         for num, _class in enumerate(labels_dir):
-            # print(_class)
             class_dir = os.path.join(dir, _class)
             class_files = list_files_in_directory(class_dir)
-            # print(class_files[:5])
             for file in class_files:
-                data = read_xml_annotation(file)
-                data_df = pd.DataFrame([data])
+                data_dict = read_xml_annotation(file)
+                data_df = pd.DataFrame([data_dict])
                 list_dataframes.append(data_df)
+            data_df.to_csv(dir)
     return list_dataframes
 
 

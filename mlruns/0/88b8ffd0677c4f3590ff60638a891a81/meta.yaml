@@ -1,0 +1,15 @@
+artifact_uri: file:///workspace/dogbreeds_dect/mlruns/0/88b8ffd0677c4f3590ff60638a891a81/artifacts
+end_time: 1691348214895
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 88b8ffd0677c4f3590ff60638a891a81
+run_name: treasured-hawk-224
+run_uuid: 88b8ffd0677c4f3590ff60638a891a81
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1691348203720
+status: 3
+tags: []
+user_id: gitpod

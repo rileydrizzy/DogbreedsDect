@@ -17,7 +17,7 @@ print(exp_id)
 print('STAGE 2')
 mlflow.tensorflow.autolog()
 print('STAGE 3')
-with mlflow.start_run(run_id= exp_id):
+with mlflow.start_run(experiment_id= exp_id):
     print('STAGE 4')
     max_words = 1000
     batch_size = 32

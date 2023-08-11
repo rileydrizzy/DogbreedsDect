@@ -9,28 +9,8 @@ install:
 	@echo "Installing..."
 	python -m pip install -r requirements.txt
 	pre-commit install
-	
-# Define the path to the virtual environment
-VENV_DIR := env
 
-# Define the activation command based on the operating system
-ifdef OS
-    ifeq ($(OS),Windows_NT)
-        ACTIVATE_CMD := $(VENV_DIR)\Scripts\activate
-    else
-        ACTIVATE_CMD := source $(VENV_DIR)/bin/activate
-    endif
-else
-    ACTIVATE_CMD := source $(VENV_DIR)/bin/activate
-endif
-
-.PHONY: activate
-
-activate:
-	#@echo "Activating virtual environment"
-	$(ACTIVATE_CMD)
-
-setup: activate install 
+setup: install 
 
 precommit:
 	@echo "Running precommit on all files"

@@ -6,7 +6,7 @@ import math
 import os
 import xml.etree.ElementTree as ET
 
-import matplotlib as mlp
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 
@@ -61,10 +61,6 @@ def read_xml_annotation(xml_file_path):
     except Exception as error:
         print(f"Error reading XML file: {error}")
         return None
-
-
-def read(list_file_path):
-    ran = len(list_file_path)
 
 
 if os.path.exists(xml_file_path):

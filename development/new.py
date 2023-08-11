@@ -1,28 +1,3 @@
-import os
-
-
-def list_files_in_directory(directory_path):
-    try:
-        # Get a list of files and directories in the specified path
-        files_and_directories = os.listdir(directory_path)
-
-        # Filter out only the files from the list
-        files_list = [
-            file
-            for file in files_and_directories
-            if os.path.isfile(os.path.join(directory_path, file))
-        ]
-
-        return files_list
-
-    except FileNotFoundError:
-        print(f"Directory not found: {directory_path}")
-        return []
-    except Exception as e:
-        print(f"Error while listing files: {e}")
-        return []
-
-
 # Example usage:
 if __name__ == "__main__":
     directory_path = (

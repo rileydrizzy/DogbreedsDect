@@ -99,3 +99,4 @@ models/*
 #
 .gitpod.yml
 mlruns
+outputs

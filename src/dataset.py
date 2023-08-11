@@ -5,16 +5,16 @@ import os
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import hydra
 import opendatasets as od
 import pandas as pd
-
-from src.utils.logger import logger
+from omegaconf import DictConfig
 
 data_raw = Path("data/raw")
 DATA_URL = "https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset"
 
 
-def download_data(data_dir):
+def download_data(data_dir=data_raw):
     """
     DOC
     """
@@ -78,7 +78,36 @@ def read_xml_annotation(xml_file_path):
         return None
 
 
+def metadat_func(annotation_dir, save_path):
+    """doc"""
+    main_dataframe = pd.DataFrame()
+    list_dataframes = []
+    for _, labels_dir, _ in os.walk(annotation_dir, topdown=True):
+        for breed_class in labels_dir:
+            class_dir = os.path.join(annotation_dir, breed_class)
+            class_files = list_files_in_directory(class_dir)
+            for file in class_files:
+                data_dict = read_xml_annotation(file)
+                data_df = pd.DataFrame([data_dict])
+                list_dataframes.append(data_df)
+    main_df = pd.concat([main_dataframe] + list_dataframes)
+    main_df.drop("Unnamed: 0", axis=1)
+    main_df.to_csv(save_path)
+
+
 def list_files_in_directory(directory_path):
+    """_summary_
+
+    Parameters
+    ----------
+    directory_path : _type_
+        _description_
+
+    Returns
+    -------
+    _type_
+        _description_
+    """
 
     try:
         # Get a list of files and directories in the specified path
@@ -95,36 +124,18 @@ def list_files_in_directory(directory_path):
 
     except FileNotFoundError:
         print(f"Directory not found: {directory_path}")
-        return []
-    except Exception as e:
-        print(f"Error while listing files: {e}")
-        return []
+    except Exception as error:
+        print(f"Error while listing files: {error}")
 
 
-def _main(dir, main_dataframe):
-    list_dataframes = []
-    for main_dir, labels_dir, filenames in os.walk(dir, topdown=True):
-        for num, _class in enumerate(labels_dir):
-            class_dir = os.path.join(dir, _class)
-            class_files = list_files_in_directory(class_dir)
-            for file in class_files:
-                data_dict = read_xml_annotation(file)
-                data_df = pd.DataFrame([data_dict])
-                list_dataframes.append(data_df)
-            data_df.to_csv(dir)
-    return list_dataframes
+@hydra.main(config_name="config", config_path="config", version_base="1.2")
+def main(cfg: DictConfig):
+    """main script"""
 
-
-def main():
-    """
-    doc
-    """
-    logger.info("Downloading data into Data Directory")
-    results = download_data(data_dir=data_raw)
-    if results:
-        logger.success("Data has been successfully downloaded")
-    else:
-        logger.error("Data wasn't downloaded, an error occur")
+    download_data()
+    metadat_func(
+        annotation_dir=cfg.files.raw.annotation_dir, save_path=cfg.files.raw.meta_data
+    )
 
 
 if __name__ == "__main__":

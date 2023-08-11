@@ -1,2 +1,8 @@
 files:
-"data/raw/stanford-dogs-dataset/annotations/Annotation/"
+    raw:
+      annotation_dir: "data/raw/stanford-dogs-dataset/annotations/Annotation/"
+      images_dir: 'data/raw/stanford-dogs-dataset/images/Images/'
+      meta_data: 'data/raw/metadat.csv'
+
+paths:
+    data: 

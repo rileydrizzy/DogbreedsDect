@@ -1,4 +1,0 @@
-download data
-setup data in the right format and create metadata that contains
-the labels and bounding box
-EDA

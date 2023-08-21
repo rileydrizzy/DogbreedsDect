@@ -183,3 +183,13 @@ def display_with_boxes(
     plt.tight_layout()
     plt.subplots_adjust(wspace=0.02, hspace=0.02)
     plt.show()
+
+def check_file_type(file_path):
+    if os.path.isfile(file_path):
+        return "Regular File"
+    elif os.path.isdir(file_path):
+        return "Directory"
+    elif os.path.islink(file_path):
+        return "Symbolic Link"
+    else:
+        return "Other"
